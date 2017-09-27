@@ -21,18 +21,19 @@ function saveBookmark(e){
     };
 
 
-    // check if bookmarks is null
-   if (localStorage.getItem("bookmarks") === null){
+    var bookmarks = localStorage.getItem("bookmarks");
 
-     var bookmarks = [];
-     bookmarks.push(bookmark);
-     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-   } else {
-       var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
-       bookmarks.push(bookmark);
-       localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-   }
+    if (bookmarks === null) {
+        bookmarks = []
+    } else {
+        bookmarks = JSON.parse(bookmarks)
+    }
+
+    bookmarks.push(bookmark);
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+
+
+
     form.reset();
 
     fetchBookmarks();
@@ -63,7 +64,8 @@ function  fetchBookmarks() {
     var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
     results.innerHTML = "";
 
-    //  for (var i = 0; i < bookmarks.length; i++) {
+
+
 
     for (var i in bookmarks) {
         var name = bookmarks[i].name;
